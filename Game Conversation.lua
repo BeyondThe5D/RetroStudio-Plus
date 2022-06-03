@@ -157,7 +157,7 @@ local Years = {
 	[185] = function() -- Unsure if accurate
 		local GraphicsLevel = 16
 		
-		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameMainMenu.ScreenshotButton.MouseButton1Down:Connect(function()
+		Player.PlayerGui:WaitForChild("RobloxGui").ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameMainMenu.ScreenshotButton.MouseButton1Down:Connect(function()
 			CoreGui:TakeScreenshot()
 		end)
 
