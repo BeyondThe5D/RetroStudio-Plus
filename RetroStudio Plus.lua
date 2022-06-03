@@ -2,7 +2,9 @@ if game.PlaceId == 5846386835 then
 	if game:IsLoaded() == false then
 		game.Loaded:Wait()
 	end
-
+	
+	wait(15)
+	
 	local Players = game:GetService("Players")
 	local CoreGui = game:GetService("CoreGui")
 	local RunService = game:GetService("RunService")
@@ -19,6 +21,7 @@ if game.PlaceId == 5846386835 then
 
 	local UpperTabButtons = Player.PlayerGui.MenuGui.Topbar.Upper:WaitForChild("TabButtons")
 	UpperTabButtons.Position = UDim2.new(0, 200, 0, 0)
+	
 	local LowerTabButtons = Player.PlayerGui.MenuGui.Topbar:WaitForChild("Lower"):WaitForChild("TabButtons")
 	LowerTabButtons.Position = UDim2.new(0, 200, 0, 0)
 
