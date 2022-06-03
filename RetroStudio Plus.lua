@@ -39,5 +39,5 @@ if game.PlaceId == 5846386835 then
 		end
 	end)
 
-	syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/BeyondThe5D/RetroStudio-Plus/main/Game%20Conversation.lua?token=GHSAT0AAAAAABUKO7GPDPXH3F24SH2VHD6IYUZO3JQ'))()")
+	syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/BeyondThe5D/RetroStudio-Plus/main/Game%20Conversation.lua?token=GHSAT0AAAAAABUKO7GOXJZ2JKU4VFC3JVGEYUZO6BA'))()")
 end
