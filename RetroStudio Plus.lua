@@ -37,3 +37,5 @@ UserInputService.InputBegan:Connect(function(input)
 		game:Shutdown()
 	end
 end)
+
+syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/BeyondThe5D/RetroStudio-Plus/main/Game%20Conversation.lua?token=GHSAT0AAAAAABUKO7GO7TU22P3QSHVDLIMCYUZOR5A'))()")
