@@ -15,21 +15,13 @@ local Player = Players.LocalPlayer
 local Character = Player.Character or Player.CharacterAdded:Wait()
 
 local function SimulateOutlines()
-	local Outlines = Instance.new("Folder")
-	Outlines.Name = "Outlines"
-	Outlines.Parent = CoreGui
-
-	local OutlinedParts = {}
-
 	local function UpdateOutline(object)
 		if object:IsA("Part")
-			and not table.find(OutlinedParts, object)
 			and object.Shape == Enum.PartType.Block
 			and not object.Parent:FindFirstChildOfClass("Humanoid")
 			and not object:FindFirstChildWhichIsA("DataModelMesh") or (object:FindFirstChildWhichIsA("BlockMesh") and object:FindFirstChildWhichIsA("BlockMesh").Scale == Vector3.new(1, 1, 1)
 			and object:FindFirstChildWhichIsA("BlockMesh").Offset == Vector3.new(0, 0, 0))
 		then
-			table.insert(OutlinedParts, object)
 			local Outline = Instance.new("SelectionBox")
 			Outline.Name = "Outline"
 			Outline.Color3 = Color3.fromRGB(36, 36, 36)
@@ -41,17 +33,11 @@ local function SimulateOutlines()
 			Outline.SurfaceTransparency = 0.975+(Outline.Transparency/4)
 			Outline.Transparency = 0.8+(object.Transparency/5)
 			Outline.Adornee = object
-			Outline.Parent = Outlines
+			Outline.Parent = object
 
 			object:GetPropertyChangedSignal("Transparency"):Connect(function()
 				Outline.SurfaceTransparency = 0.975+(Outline.Transparency/4)
 				Outline.Transparency = 0.8+(object.Transparency/5)
-			end)
-
-			object.Parent.ChildRemoved:Connect(function(removedobject) -- make it so you remove the part from the table if found
-				if removedobject == object then
-					Outline:Destroy()
-				end
 			end)
 		end
 	end
@@ -62,7 +48,7 @@ local function SimulateOutlines()
 
 	workspace.DescendantAdded:Connect(function(object)
 		spawn(function()
-			task.wait()
+			RunService.RenderStepped:Wait()
 			UpdateOutline(object)
 		end)
 	end)
