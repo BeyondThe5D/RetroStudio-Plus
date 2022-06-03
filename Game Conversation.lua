@@ -154,6 +154,55 @@ local Years = {
 		SimulateOutlines()
 		SimulateHRPSoundRemoval()
 	end,
+	[185] = function() -- Unsure if accurate
+		local GraphicsLevel = 16
+		
+		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameMainMenu.ScreenshotButton.MouseButton1Down:Connect(function()
+			CoreGui:TakeScreenshot()
+		end)
+
+		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameMainMenu.RecordVideoButton.MouseButton1Down:Connect(function()
+			CoreGui:ToggleRecording()
+		end)
+
+		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu.FullscreenCheckbox.MouseButton1Down:Connect(function()
+			GuiService:ToggleFullscreen()
+		end)
+		
+		local QualityAutoCheckBox = Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu.AutoGraphicsButton
+		
+		QualityAutoCheckBox.Changed:Connect(function(property)
+			if QualityAutoCheckBox.Text == "X" then
+				Rendering.QualityLevel = Enum.QualityLevel.Automatic
+			else
+				Rendering.QualityLevel = "Level" .. string.format("%0.2i", GraphicsLevel)
+			end
+		end)
+		
+		for _,buttons in pairs(Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu:GetChildren()) do
+			if buttons:FindFirstChild("SliderSteps") then
+				if buttons.SliderSteps.Value == 10 then
+					buttons.SliderPosition.Changed:Connect(function(graphicslevel)
+						GraphicsLevel = math.floor(1.6 * graphicslevel)
+						Rendering.QualityLevel = "Level" .. string.format("%0.2i", GraphicsLevel)
+					end)
+				end
+
+				if buttons.SliderSteps.Value == 256 then
+					buttons.SliderPosition.Value = UserGameSettings.MasterVolume * 256
+					buttons.SliderPosition.Changed:Connect(function(volumelevel)
+						UserGameSettings.MasterVolume = (volumelevel - 1) / 255
+					end)
+				end
+			end
+		end
+		
+		Rendering.QualityLevel = Enum.QualityLevel.Level16
+		
+		SimulateOldConsole()
+		SimulateOutlines()
+		SimulateHRPSoundRemoval()
+	end,
 }
 
 Years[ReplicatedStorage.RobloxVersion.Value]()
