@@ -13,12 +13,7 @@ if game.PlaceId == 5846386835 then
 	CoreGui:WaitForChild("ThemeProvider"):Destroy()
 	CoreGui:WaitForChild("RobloxGui"):Destroy()
 
-	Player.PlayerGui:WaitForChild("MenuGui").GamesPageFrame.Visible = false
-	Player.PlayerGui.MenuGui.HomePageFrame.Visible = true
-	Player.PlayerGui.MenuGui.Topbar.Upper.TabButtons.HomeButton.BackgroundTransparency = 0.8
-	Player.PlayerGui.MenuGui.Topbar.Upper.TabButtons.GamesButton.BackgroundTransparency = 1
-
-	local Logo = Player.PlayerGui.MenuGui.Topbar.Upper.Logo
+	local Logo = Player.PlayerGui:WaitForChild("MenuGui").Topbar.Upper.Logo
 	Logo.AnchorPoint = Vector2.new(0,0.5)
 	Logo.Position = UDim2.new(0, 5, 0.5, 0)
 
