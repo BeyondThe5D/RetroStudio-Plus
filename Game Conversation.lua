@@ -142,7 +142,7 @@ local Years = {
 				if buttons.SliderSteps.Value == 256 then
 					buttons.SliderPosition.Value = UserGameSettings.MasterVolume * 256
 					buttons.SliderPosition.Changed:Connect(function(volumelevel)
-						UserGameSettings.MasterVolume = volumelevel / buttons.SliderSteps.Value
+						UserGameSettings.MasterVolume = 1 - (volumelevel / buttons.SliderSteps.Value)
 					end)
 				end
 			end
