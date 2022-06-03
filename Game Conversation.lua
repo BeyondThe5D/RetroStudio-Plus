@@ -85,13 +85,45 @@ local function SimulateOldConsole()
 	end)
 end
 
+local function SimulateOldSliders(autographics,gamesettings)
+	local GraphicsLevel = 16
+
+	local QualityAutoCheckBox = autographics
+
+	QualityAutoCheckBox.Changed:Connect(function(property)
+		if QualityAutoCheckBox.Text == "X" then
+			Rendering.QualityLevel = Enum.QualityLevel.Automatic
+		else
+			Rendering.QualityLevel = "Level" .. string.format("%0.2i", GraphicsLevel)
+		end
+	end)
+
+	for _,buttons in pairs(gamesettings:GetChildren()) do
+		if buttons:FindFirstChild("SliderSteps") then
+			if buttons.SliderSteps.Value == 10 then
+				buttons.SliderPosition.Changed:Connect(function(graphicslevel)
+					GraphicsLevel = math.floor(1.6 * graphicslevel)
+					Rendering.QualityLevel = "Level" .. string.format("%0.2i", GraphicsLevel)
+				end)
+			end
+
+			if buttons.SliderSteps.Value == 256 then
+				buttons.SliderPosition.Value = UserGameSettings.MasterVolume * 256
+				buttons.SliderPosition.Changed:Connect(function(volumelevel)
+					UserGameSettings.MasterVolume = (volumelevel - 1) / 255
+				end)
+			end
+		end
+	end
+
+	Rendering.QualityLevel = Enum.QualityLevel.Level16
+end
+
 CoreGui:WaitForChild("ThemeProvider"):Destroy()
 CoreGui:WaitForChild("RobloxGui"):Destroy()
 
 local Years = {
 	[199] = function()
-		local GraphicsLevel = 16
-
 		Player.PlayerGui:WaitForChild("RobloxGui"):WaitForChild("TopBarContainer").Position = UDim2.new(0, -48, 0, -36)
 		Player.PlayerGui.RobloxGui.TopBarContainer.Size = UDim2.new(1, 48, 0, 36)
 
@@ -108,97 +140,38 @@ local Years = {
 			Player.PlayerGui.RobloxGui.ChatBarContainer.Position = UDim2.new(0, 0, 0.215, 37)
 		end
 
-		Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame.RootMenuFrame.ScreenshotButton.MouseButton1Down:Connect(function()
+		Player.PlayerGui.RobloxGui:WaitForChild("SettingsMenu"):WaitForChild("SettingsShield"):WaitForChild("SettingClipFrame"):WaitForChild("RootMenuFrame"):WaitForChild("ScreenshotButton").MouseButton1Down:Connect(function()
 			CoreGui:TakeScreenshot()
 		end)
 
-		Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame.RootMenuFrame.RecordVideoButton.MouseButton1Down:Connect(function()
+		Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame.RootMenuFrame:WaitForChild("RecordVideoButton").MouseButton1Down:Connect(function()
 			CoreGui:ToggleRecording()
 		end)
 
-		Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame.GameSettingsMenuFrame.FullScreenTextCheckBox.MouseButton1Down:Connect(function()
+		Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame:WaitForChild("GameSettingsMenuFrame"):WaitForChild("FullScreenTextCheckBox").MouseButton1Down:Connect(function()
 			GuiService:ToggleFullscreen()
 		end)
-
-		local QualityAutoCheckBox = Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame.GameSettingsMenuFrame.QualityAutoCheckBox
-
-		QualityAutoCheckBox.Changed:Connect(function(property)
-			if QualityAutoCheckBox.Text == "X" then
-				Rendering.QualityLevel = Enum.QualityLevel.Automatic
-			else
-				Rendering.QualityLevel = "Level" .. string.format("%0.2i", GraphicsLevel)
-			end
-		end)
-
-		for _,buttons in pairs(Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame.GameSettingsMenuFrame:GetChildren()) do
-			if buttons:FindFirstChild("SliderSteps") then
-				if buttons.SliderSteps.Value == 10 then
-					buttons.SliderPosition.Changed:Connect(function(graphicslevel)
-						GraphicsLevel = math.floor(1.6 * graphicslevel)
-						Rendering.QualityLevel = "Level" .. string.format("%0.2i", GraphicsLevel)
-					end)
-				end
-
-				if buttons.SliderSteps.Value == 256 then
-					buttons.SliderPosition.Value = UserGameSettings.MasterVolume * 256
-					buttons.SliderPosition.Changed:Connect(function(volumelevel)
-						UserGameSettings.MasterVolume = (volumelevel - 1) / 255
-					end)
-				end
-			end
-		end
-
-		Rendering.QualityLevel = Enum.QualityLevel.Level16
-
+		
+		SimulateOldSliders(Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame:WaitForChild("GameSettingsMenuFrame"):WaitForChild("QualityAutoCheckBox"),Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame.GameSettingsMenuFrame)
 		SimulateOldConsole()
 		SimulateOutlines()
 		SimulateHRPSoundRemoval()
 	end,
 	[185] = function() -- Unsure if accurate
-		local GraphicsLevel = 16
 		
-		Player.PlayerGui:WaitForChild("RobloxGui").ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameMainMenu.ScreenshotButton.MouseButton1Down:Connect(function()
+		Player.PlayerGui:WaitForChild("RobloxGui"):WaitForChild("ControlFrame"):WaitForChild("UserSettingsShield"):WaitForChild("Settings"):WaitForChild("SettingsStyle"):WaitForChild("GameMainMenu"):WaitForChild("ScreenshotButton").MouseButton1Down:Connect(function()
 			CoreGui:TakeScreenshot()
 		end)
 
-		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameMainMenu.RecordVideoButton.MouseButton1Down:Connect(function()
+		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameMainMenu:WaitForChild("RecordVideoButton").MouseButton1Down:Connect(function()
 			CoreGui:ToggleRecording()
 		end)
 
-		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu.FullscreenCheckbox.MouseButton1Down:Connect(function()
+		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle:WaitForChild("GameSettingsMenu"):WaitForChild("FullscreenCheckbox").MouseButton1Down:Connect(function()
 			GuiService:ToggleFullscreen()
 		end)
 		
-		local QualityAutoCheckBox = Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu.AutoGraphicsButton
-		
-		QualityAutoCheckBox.Changed:Connect(function(property)
-			if QualityAutoCheckBox.Text == "X" then
-				Rendering.QualityLevel = Enum.QualityLevel.Automatic
-			else
-				Rendering.QualityLevel = "Level" .. string.format("%0.2i", GraphicsLevel)
-			end
-		end)
-		
-		for _,buttons in pairs(Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu:GetChildren()) do
-			if buttons:FindFirstChild("SliderSteps") then
-				if buttons.SliderSteps.Value == 10 then
-					buttons.SliderPosition.Changed:Connect(function(graphicslevel)
-						GraphicsLevel = math.floor(1.6 * graphicslevel)
-						Rendering.QualityLevel = "Level" .. string.format("%0.2i", GraphicsLevel)
-					end)
-				end
-
-				if buttons.SliderSteps.Value == 256 then
-					buttons.SliderPosition.Value = UserGameSettings.MasterVolume * 256
-					buttons.SliderPosition.Changed:Connect(function(volumelevel)
-						UserGameSettings.MasterVolume = (volumelevel - 1) / 255
-					end)
-				end
-			end
-		end
-		
-		Rendering.QualityLevel = Enum.QualityLevel.Level16
-		
+		SimulateOldSliders(Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu:WaitForChild("AutoGraphicsButton"),Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu)
 		SimulateOldConsole()
 		SimulateOutlines()
 		SimulateHRPSoundRemoval()
