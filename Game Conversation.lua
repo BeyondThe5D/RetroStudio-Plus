@@ -2,8 +2,6 @@ if game:IsLoaded() == false then
 	game.Loaded:Wait()
 end
 
-wait(5)
-
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local CoreGui = game:GetService("CoreGui")
@@ -100,6 +98,9 @@ local function SimulateOldConsole()
 		end
 	end)
 end
+
+CoreGui:WaitForChild("ThemeProvider"):Destroy()
+CoreGui:WaitForChild("RobloxGui"):Destroy()
 
 local Years = {
 	[199] = function()
