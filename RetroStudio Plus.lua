@@ -3,7 +3,7 @@ if game.PlaceId == 5846386835 then
 		game.Loaded:Wait()
 	end
 	
-	wait(15)
+	wait()
 	
 	local Players = game:GetService("Players")
 	local CoreGui = game:GetService("CoreGui")
