@@ -2,6 +2,8 @@ if game:IsLoaded() == false then
 	game.Loaded:Wait()
 end
 
+wait()
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local CoreGui = game:GetService("CoreGui")
