@@ -17,9 +17,9 @@ if game.PlaceId == 5846386835 then
 	Logo.AnchorPoint = Vector2.new(0,0.5)
 	Logo.Position = UDim2.new(0, 5, 0.5, 0)
 
-	local UpperTabButtons = Player.PlayerGui.MenuGui.Topbar.Upper.TabButtons
+	local UpperTabButtons = Player.PlayerGui.MenuGui.Topbar.Upper:WaitForChild("TabButtons")
 	UpperTabButtons.Position = UDim2.new(0, 200, 0, 0)
-	local LowerTabButtons = Player.PlayerGui.MenuGui.Topbar.Lower.TabButtons
+	local LowerTabButtons = Player.PlayerGui.MenuGui.Topbar.Lower:WaitForChild("TabButtons")
 	LowerTabButtons.Position = UDim2.new(0, 200, 0, 0)
 
 	workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
