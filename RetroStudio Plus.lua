@@ -2,9 +2,7 @@ if game.PlaceId == 5846386835 then
 	if game:IsLoaded() == false then
 		game.Loaded:Wait()
 	end
-	
-	wait()
-	
+
 	local Players = game:GetService("Players")
 	local CoreGui = game:GetService("CoreGui")
 	local RunService = game:GetService("RunService")
@@ -20,14 +18,12 @@ if game.PlaceId == 5846386835 then
 	Logo.Position = UDim2.new(0, 5, 0.5, 0)
 
 	local UpperTabButtons = Player.PlayerGui.MenuGui.Topbar.Upper:WaitForChild("TabButtons")
-	UpperTabButtons.Position = UDim2.new(0, 200, 0, 0)
-	
-	local LowerTabButtons = Player.PlayerGui.MenuGui.Topbar:WaitForChild("Lower"):WaitForChild("TabButtons")
-	LowerTabButtons.Position = UDim2.new(0, 200, 0, 0)
-
-	workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-		RunService.Heartbeat:Wait()
+	UpperTabButtons.Changed:Connect(function()
 		UpperTabButtons.Position = UDim2.new(0, 200, 0, 0)
+	end)
+
+	local LowerTabButtons = Player.PlayerGui.MenuGui.Topbar:WaitForChild("Lower"):WaitForChild("TabButtons")
+	LowerTabButtons.Changed:Connect(function()
 		LowerTabButtons.Position = UDim2.new(0, 200, 0, 0)
 	end)
 
