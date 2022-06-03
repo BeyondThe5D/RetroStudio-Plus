@@ -105,9 +105,6 @@ local Years = {
 	[199] = function()
 		local GraphicsLevel = 16
 
-		CoreGui:WaitForChild("ThemeProvider"):Destroy()
-		CoreGui:WaitForChild("RobloxGui"):Destroy()
-
 		Player.PlayerGui:WaitForChild("RobloxGui"):WaitForChild("TopBarContainer").Position = UDim2.new(0, -48, 0, -36)
 		Player.PlayerGui.RobloxGui.TopBarContainer.Size = UDim2.new(1, 48, 0, 36)
 
