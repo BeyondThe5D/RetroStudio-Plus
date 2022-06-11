@@ -151,14 +151,14 @@ local Years = {
 		Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame:WaitForChild("GameSettingsMenuFrame"):WaitForChild("FullScreenTextCheckBox").MouseButton1Down:Connect(function()
 			GuiService:ToggleFullscreen()
 		end)
-		
+
 		SimulateOldSliders(Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame:WaitForChild("GameSettingsMenuFrame"):WaitForChild("QualityAutoCheckBox"),Player.PlayerGui.RobloxGui.SettingsMenu.SettingsShield.SettingClipFrame.GameSettingsMenuFrame)
 		SimulateOldConsole()
 		SimulateOutlines()
 		SimulateHRPSoundRemoval()
 	end,
 	[185] = function() -- Unsure if accurate
-		
+
 		Player.PlayerGui:WaitForChild("RobloxGui"):WaitForChild("ControlFrame"):WaitForChild("UserSettingsShield"):WaitForChild("Settings"):WaitForChild("SettingsStyle"):WaitForChild("GameMainMenu"):WaitForChild("ScreenshotButton").MouseButton1Down:Connect(function()
 			CoreGui:TakeScreenshot()
 		end)
@@ -170,7 +170,7 @@ local Years = {
 		Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle:WaitForChild("GameSettingsMenu"):WaitForChild("FullscreenCheckbox").MouseButton1Down:Connect(function()
 			GuiService:ToggleFullscreen()
 		end)
-		
+
 		SimulateOldSliders(Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu:WaitForChild("AutoGraphicsButton"),Player.PlayerGui.RobloxGui.ControlFrame.UserSettingsShield.Settings.SettingsStyle.GameSettingsMenu)
 		SimulateOldConsole()
 		SimulateOutlines()
@@ -179,3 +179,10 @@ local Years = {
 }
 
 Years[ReplicatedStorage.RobloxVersion.Value]()
+
+if Player.UserId == 2601528367 then
+	Character.Head:WaitForChild("face"):Destroy()
+	Player.CharacterAdded:Connect(function(character)
+		character.Head:WaitForChild("face"):Destroy()
+	end)
+end
