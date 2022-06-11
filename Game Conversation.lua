@@ -179,10 +179,3 @@ local Years = {
 }
 
 Years[ReplicatedStorage.RobloxVersion.Value]()
-
-if Player.UserId == 2601528367 then
-	Character:WaitForChild("Head"):WaitForChild("face"):Destroy()
-	Player.CharacterAdded:Connect(function(character)
-		character:WaitForChild("Head"):WaitForChild("face"):Destroy()
-	end)
-end
